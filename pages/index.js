@@ -1,26 +1,6 @@
-import { Todo } from "../utils/constants.js";
+import { Todo } from "../components/todo.js";
 import { FormValidator } from "../components/FormValidator.js";
-const initialTodos = [
-  {
-    id: "7cec7373-681b-49d9-b065-021d61a69d03",
-    name: "Read the sprint's theory",
-    completed: true,
-    date: new Date(),
-  },
-  {
-    id: "a7bfd5ef-37cc-4fa6-89f2-cac098a8aeba",
-    name: "Read project instructions",
-    completed: false,
-    date: new Date(),
-  },
-  {
-    id: "aa486839-63ab-437f-b8a2-29ab217dff4f",
-    name: "Complete project",
-    completed: false,
-    date: new Date(),
-  },
-];
-
+import { initialTodos } from "../utils/constants.js";
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -45,15 +25,14 @@ const closeModal = (modal) => {
 };
 
 const validation = new FormValidator(validationConfig, addTodoForm);
+validation.enableValidation();
 
 addTodoButton.addEventListener("click", () => {
   openModal(addTodoPopup);
-  validation.enableValidation();
 });
 
 addTodoCloseBtn.addEventListener("click", () => {
   closeModal(addTodoPopup);
-  validation.resetValidation();
 });
 
 addTodoForm.addEventListener("submit", (evt) => {
@@ -68,16 +47,18 @@ addTodoForm.addEventListener("submit", (evt) => {
 
   const uniqueId = crypto.randomUUID();
   const values = { name, date, uniqueId };
-  const todo = new Todo(values, "#todo-template");
-  const todoListElement = todo.generateTodo();
-  todosList.append(todoListElement);
+  renderTodo(values);
   closeModal(addTodoPopup);
 });
 
 initialTodos.forEach((item) => {
-  const todo = new Todo(item, "#todo-template");
-  const todoListElement = todo.generateTodo();
-  todosList.append(todoListElement);
+  renderTodo(item);
 });
+
+function renderTodo(todoData) {
+  const todoInstance = new Todo(todoData, "#todo-template");
+  const todoElement = todoInstance.generateTodo();
+  todosList.append(todoElement);
+}
 
 export { initialTodos, validationConfig };

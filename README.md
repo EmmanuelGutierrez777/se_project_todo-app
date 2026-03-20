@@ -1,14 +1,20 @@
 # Simple Todo App
 
-Give a brief description of the project here. Feel free to give it a different name.
+Object oriented programming implementation: I modify a todo list app to make it use Todo and FormValidator classes.
 
 ## Functionality
 
-Give a more detailed explanation of the project and its functionality.
+- Object-Oriented Programming
+- ES6 Classes
+- Modular structure
+- Unique ID generation
+- Form validation
 
 ## Technology
 
-Give a description of the technologies and techniques used. Pictures, GIFs, or screenshots that detail the project features are recommended.
+![Form validation](./images/Screenshot%202026-03-19%20205336.png)
+![JavaScript ES6+](./images/Screenshot%202026-03-19%20205501.png)
+![Unique ID generation](./images/Screenshot%202026-03-19%20205639.png)
 
 ## Deployment
 
