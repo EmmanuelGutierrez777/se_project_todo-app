@@ -1,4 +1,4 @@
-import { Todo } from "../components/todo.js";
+import { Todo } from "../components/Todo.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { initialTodos } from "../utils/constants.js";
 const validationConfig = {
@@ -12,7 +12,7 @@ const validationConfig = {
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
-const addTodoForm = addTodoPopup.querySelector(".popup__form");
+const addTodoForm = document.forms["add-todo-form"];
 const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
 const todosList = document.querySelector(".todos__list");
 

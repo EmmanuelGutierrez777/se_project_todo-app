@@ -4,14 +4,6 @@ class Todo {
     this._selector = selector;
   }
 
-  _setEventListeners() {
-    this._element
-      .querySelector(".todo__delete-btn")
-      .addEventListener("click", () => {
-        this._handleDeleteButton();
-      });
-  }
-
   getTemplate() {
     const todoElement = document
       .querySelector(this._selector)
@@ -21,19 +13,35 @@ class Todo {
     return todoElement;
   }
 
+  _setEventListeners() {
+    this._label = this._element.querySelector(".todo__label");
+    this._element
+      .querySelector(".todo__delete-btn")
+      .addEventListener("click", () => {
+        this._handleDeleteButton();
+      });
+    this._checkBox = this._element.querySelector(".todo__completed");
+    this._element
+      .querySelector(".todo__completed")
+      .addEventListener("change", () => {
+        this._handleCheckBox();
+      });
+  }
+
   generateTodo() {
     this._element = this.getTemplate();
     this._setEventListeners();
-    const label = this._element.querySelector(".todo__label");
-    this._label = label;
     this._generateUniqueId();
     this._element.querySelector(".todo__name").textContent = this._data.name;
-    const checkbox = this._element.querySelector(".todo__completed");
-    checkbox.checked = this._data.completed;
-    checkbox.id = `todo-${this._data.id}`;
-    label.setAttribute("for", `todo-${this._data.id}`);
+    this._checkBox.id = `todo-${this._data.id}`;
+    this._checkBox.checked = this._data.completed;
+    this._label.setAttribute("for", `todo-${this._data.id}`);
     this._parseDate();
     return this._element;
+  }
+
+  _handleCheckBox() {
+    this._data.completed = this._checkBox.checked;
   }
 
   _generateUniqueId() {
