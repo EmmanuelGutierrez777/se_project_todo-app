@@ -1,3 +1,5 @@
+import { todoCounter, todos, checkboxListener } from "../pages/index.js";
+
 class Todo {
   constructor(data, selector) {
     this._data = data;
@@ -15,16 +17,26 @@ class Todo {
 
   _setEventListeners() {
     this._label = this._element.querySelector(".todo__label");
-    this._element
-      .querySelector(".todo__delete-btn")
-      .addEventListener("click", () => {
-        this._handleDeleteButton();
-      });
     this._checkBox = this._element.querySelector(".todo__completed");
     this._element
       .querySelector(".todo__completed")
       .addEventListener("change", () => {
         this._handleCheckBox();
+        todoCounter.updateCompleted(event.target.checked);
+        todoCounter._updateText();
+        console.log(this._checkBox.checked);
+      });
+
+    this._element
+      .querySelector(".todo__delete-btn")
+      .addEventListener("click", () => {
+        this._handleDeleteButton();
+        if (this._checkBox.checked) {
+          todoCounter.updateCompleted(false);
+          todoCounter._updateText();
+        }
+        todoCounter.updateTotal(false);
+        todoCounter._updateText();
       });
   }
 
