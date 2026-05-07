@@ -1,9 +1,9 @@
-import { todoCounter, todos, checkboxListener } from "../pages/index.js";
-
 class Todo {
-  constructor(data, selector) {
+  constructor(data, selector, onToggle, onDelete) {
     this._data = data;
     this._selector = selector;
+    this._onToggle = onToggle;
+    this._onDelete = onDelete;
   }
 
   getTemplate() {
@@ -20,23 +20,16 @@ class Todo {
     this._checkBox = this._element.querySelector(".todo__completed");
     this._element
       .querySelector(".todo__completed")
-      .addEventListener("change", () => {
+      .addEventListener("change", (evt) => {
         this._handleCheckBox();
-        todoCounter.updateCompleted(event.target.checked);
-        todoCounter._updateText();
-        console.log(this._checkBox.checked);
+        this._onToggle(evt.target.checked);
       });
 
     this._element
       .querySelector(".todo__delete-btn")
-      .addEventListener("click", () => {
+      .addEventListener("click", (evt) => {
         this._handleDeleteButton();
-        if (this._checkBox.checked) {
-          todoCounter.updateCompleted(false);
-          todoCounter._updateText();
-        }
-        todoCounter.updateTotal(false);
-        todoCounter._updateText();
+        this._onDelete(evt.target.closest(".todo"));
       });
   }
 
