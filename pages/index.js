@@ -6,7 +6,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import TodoCounter from "../components/TodoCounter.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 import Section from "../components/Section.js";
-const id = uuidv4();
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoForm = document.forms["add-todo-form"];
@@ -44,6 +43,7 @@ function transformData(valuesObj) {
   const values = { name, date, uniqueId };
   renderTodo(values);
   todoCounter.updateTotal(true);
+  validation.resetValidation();
 }
 
 function renderTodo(todoData) {
@@ -65,7 +65,6 @@ function renderTodo(todoData) {
   );
   const todoElement = todoInstance.generateTodo();
   section.addItem(todoElement);
-  return todoElement;
 }
 
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
